@@ -41,26 +41,26 @@ class SgRomanizer
   ]
 
   def romanize(arabic)
-    arabic.to_s
-      .chars
-      .reverse
-      .zip(ARABIC_TO_ROMAN)
-      .map { |c, a2r| a2r[c.to_i] || '' }
-      .reverse
-      .join
+    arabic.to_s # '2024'
+      .chars # ['2', '0', '2', '4']
+      .reverse # ['4', '2', '0', '2']
+      .zip(ARABIC_TO_ROMAN) # [['4', {...}], ['2', {...}], ['0', {...}], ['2', {...}]]
+      .map { |c, a2r| a2r[c.to_i] || '' } # ['IV', 'XX', 'MM']
+      .reverse # ['MM', 'XX', 'IV']
+      .join # 'MMXXIV'
   end
 
   def deromanize(roman)
     tokens = ARABIC_TO_ROMAN.reverse
-               .map { |a2r| a2r.values.sort_by { |k, _| k.size * -1 } }
-               .map do |prefixes|
+               .map { |a2r| a2r.values.sort_by { |k, _| k.size * -1 } } # [%w[MMM MM M], %w[DCCC CCC DCC CC ...], ...]
+               .map do |prefixes| # ['MM', nil, 'XX', 'IV']
                  prefixes.find { roman.start_with?(_1) }.tap do |prefix|
                    roman = roman.chars.drop(prefix.size).join if prefix
                  end
                end
     roman_to_arabic = ARABIC_TO_ROMAN.reverse.map { _1.invert }
-    tokens.zip(roman_to_arabic)
-      .map { |t, r2a| r2a[t] || 0 }
-      .join.to_i
+    tokens.zip(roman_to_arabic) # [['MM', {...}], [nil, {...}], ['XX', {...}], ['IV', {...}]]
+      .map { |t, r2a| r2a[t] || 0 } # [2, 0, 2, 4]
+      .join.to_i # 2024
   end
 end
