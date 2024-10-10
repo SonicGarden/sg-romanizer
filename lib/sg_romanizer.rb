@@ -10,7 +10,7 @@ class SgRomanizer
   private
 
   def load_pattern
-    file_path = File.expand_path('../test/pattern.yml', File.dirname(__FILE__))
+    file_path = File.expand_path('pattern.yml', File.dirname(__FILE__))
     YAML.load_file(file_path)
   end
 end
