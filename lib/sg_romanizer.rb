@@ -26,12 +26,10 @@ class SgRomanizer
   end
     
   def generateRoman(target_digit, fifth_key, unit, nextUnit)
-    if target_digit < 5 then
-      if target_digit < 4 then
-        return unit * target_digit
-      else
-        return unit + fifth_key
-      end
+    if target_digit < 4 then
+      return unit * target_digit
+    elsif target_digit == 4 then
+      return unit + fifth_key
     elsif target_digit == 5 then
       return fifth_key
     elsif 5 < target_digit && target_digit < 9 then
