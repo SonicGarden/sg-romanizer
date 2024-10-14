@@ -19,7 +19,31 @@ class SgRomanizer
   }
 
   def romanize(arabic)
-    # write your code here
+    result_romanized_text = ""
+    arabic_to_roman = ROMAN_TO_ARABIC.invert
+    arabic_to_subtractive_notation_numbers = SUBTRACTIVE_NOTATION_NUMBERS_TO_ARABIC.invert
+
+    arabic.digits.each_with_index do |num, index|
+      digit = 10 ** index
+      higher_digit = digit * 5
+
+      if num == 4 || num ==9
+        insert_roman_text = arabic_to_subtractive_notation_numbers[num * digit]
+        next result_romanized_text.prepend(insert_roman_text)
+      end
+
+      if num >= 5
+        higher_digit_text = arabic_to_roman[higher_digit]
+        digit_text = arabic_to_roman[digit] * (num - 5)
+        insert_roman_text = higher_digit_text + digit_text
+        next result_romanized_text.prepend(insert_roman_text)
+      end
+
+      insert_roman_text = arabic_to_roman[digit] * num
+      result_romanized_text.prepend(insert_roman_text)
+    end
+
+    result_romanized_text
   end
 
   def deromanize(roman)
