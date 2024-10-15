@@ -23,7 +23,13 @@ class SgRomanizer
 
     return result
   end
-    
+   
+  # Generate roman numeral string from arabic number
+  # @param [Int] target_digit The target digit.
+  # @param [String] fifth_key The Roman numeral string that comes in the 5th position of each digit.(e.g. D, L, V)
+  # @param [String] unit Current unit. (e.g. M, C, X, I)
+  # @param [String] unit Next-digit unit. (e.g. M, C, X, I)
+  # @return [String] result Roman numeral string
   def generateRoman(target_digit, fifth_key, unit, nextUnit)
     if target_digit < 4 then
       return unit * target_digit
@@ -52,6 +58,10 @@ class SgRomanizer
     return result
   end
 
+  # Generate arabic number from roman numeric number
+  # @param [String] roman Roman numeral string
+  # @return [Int] result Arabic number
+  # @return [Int] count The count of removed string
   def generateArabic(roman)
     if roman.start_with?("MMM") then
       return 3000, 3
