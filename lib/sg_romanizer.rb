@@ -11,10 +11,10 @@ class SgRomanizer
   end
 
   def deromanize(roman)
-    roman_chars = roman.chars
-    roman_chars.map.with_index do |r,i|
-      arabic = {"I"=> 1, "V"=> 5, "X"=> 10, "L"=> 50, "C"=> 100, "D"=> 500, "M"=> 1000}[r]
-      (arabic < {"I"=> 1, "V"=> 5, "X"=> 10, "L"=> 50, "C"=> 100, "D"=> 500, "M"=> 1000}[roman_chars[i + 1]].to_i ? -1 : 1) * arabic
+    roman.chars.reverse.map do |r|
+      {"I"=> 1, "V"=> 5, "X"=> 10, "L"=> 50, "C"=> 100, "D"=> 500, "M"=> 1000}[r]
+    end.inject([0]) do |result, n|
+      result << (result.last > n ? -1 * n : n)
     end.sum
   end
 end
