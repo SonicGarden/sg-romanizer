@@ -1,5 +1,5 @@
 class SgRomanizer
-  ROMAN_WEIGHTS = {
+  ROMAN_WEIGHT = {
     "I" => 1,
     "IV" => 4,
     "V" => 5,
@@ -14,7 +14,7 @@ class SgRomanizer
     "CM" => 900,
     "M" => 1000
   }.freeze
-  ROMAN_CHAR = ROMAN_WEIGHTS.invert.freeze
+  ROMAN_CHAR = ROMAN_WEIGHT.invert.freeze
 
   def romanize(arabic)
     ret = ""
@@ -41,11 +41,11 @@ class SgRomanizer
     ret = 0
 
     while !roman.empty?
-      if ROMAN_WEIGHTS[roman[0..1]]
-        ret += ROMAN_WEIGHTS[roman[0..1]]
+      if ROMAN_WEIGHT[roman[0..1]]
+        ret += ROMAN_WEIGHT[roman[0..1]]
         roman.slice!(0, 2)
       else
-        ret += ROMAN_WEIGHTS[roman[0]]
+        ret += ROMAN_WEIGHT[roman[0]]
         roman.slice!(0, 1)
       end
     end
