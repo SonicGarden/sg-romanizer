@@ -22,7 +22,7 @@ class SgRomanizer
     end
     positions.sum do |y_pos, x_pos|
       max_x_pos = y_pos.zero? ? 3 : 9
-      10**(TABLE.size - y_pos - 1) * (max_x_pos - x_pos)
+      (max_x_pos - x_pos) * 10**(TABLE.size - y_pos - 1)
     end
   end
 end
